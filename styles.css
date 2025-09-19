@@ -1,0 +1,232 @@
+/* Дополнительные стили для веб-сервиса заказа печати */
+
+/* Основные стили */
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Стили для карточек */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    padding: 1.5rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Стили для формы */
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.75rem;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-2px);
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: #667eea;
+}
+
+/* Стили для кнопок */
+.btn {
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+}
+
+.btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Стили для успешных сообщений */
+.bg-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #c6f6d5 0%, #9ae6b4 100%);
+    border: none;
+    border-left: 4px solid #48bb78;
+    border-radius: 10px;
+}
+
+/* Стили для сообщений об ошибках */
+.bg-danger {
+    background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%) !important;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #fed7d7 0%, #feb2b2 100%);
+    border: none;
+    border-left: 4px solid #f56565;
+    border-radius: 10px;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fef5e7 0%, #fbd38d 100%);
+    border: none;
+    border-left: 4px solid #ed8936;
+    border-radius: 10px;
+}
+
+/* Стили для иконок */
+.fas {
+    margin-right: 0.5rem;
+}
+
+/* Стили для информационной панели */
+.list-unstyled li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.text-success {
+    color: #48bb78 !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .d-md-flex {
+        flex-direction: column !important;
+    }
+}
+
+/* Анимация загрузки */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Стили для валидации */
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: #f56565;
+    background-image: none;
+}
+
+.form-control.is-valid,
+.form-select.is-valid {
+    border-color: #48bb78;
+    background-image: none;
+}
+
+/* Стили для подсказок */
+.form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+}
+
+/* Дополнительные стили для улучшения UX */
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.alert strong {
+    font-weight: 600;
+}
+
+/* Стили для hover-эффектов */
+.form-control:not(:focus):hover,
+.form-select:not(:focus):hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для фокуса на кнопках */
+.btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.5);
+}
+
+/* Улучшенные стили для мобильных устройств */
+@media (max-width: 576px) {
+    .card-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .btn {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}
+
