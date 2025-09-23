@@ -1,18 +1,13 @@
 <?php
-/**
- * PHP-обработчик для формы заказа печати
- * Выполняет валидацию данных и сохранение в базу данных
- */
 
-// Подключение конфигурации
 require_once 'config.php';
 
-// Функция для безопасного вывода HTML
+
 function htmlEscape($string) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
-// Функция для отображения результата
+
 function displayResult($success, $message, $errors = []) {
     ?>
     <!DOCTYPE html>
@@ -69,9 +64,9 @@ function displayResult($success, $message, $errors = []) {
     <?php
 }
 
-// Проверка метода запроса
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    // Если это GET-запрос, перенаправляем на форму
+
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Location: form.html');
         exit;
@@ -80,16 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Массив для хранения ошибок валидации
 $errors = [];
 
-// Получение и валидация данных из формы
+
 $document_name = isset($_POST['document_name']) ? trim($_POST['document_name']) : '';
 $print_format = isset($_POST['print_format']) ? trim($_POST['print_format']) : '';
 $copies = isset($_POST['copies']) ? (int)$_POST['copies'] : 0;
 $pickup_date = isset($_POST['pickup_date']) ? trim($_POST['pickup_date']) : '';
 
-// Валидация названия документа
 if (empty($document_name)) {
     $errors[] = 'Название документа не может быть пустым';
 } elseif (strlen($document_name) > 255) {
@@ -98,7 +91,7 @@ if (empty($document_name)) {
     $errors[] = 'Название документа содержит недопустимые символы';
 }
 
-// Валидация формата печати
+
 $allowed_formats = ['A4', 'A3', 'A5', 'Letter', 'Legal'];
 if (empty($print_format)) {
     $errors[] = 'Формат печати должен быть выбран';
@@ -106,14 +99,13 @@ if (empty($print_format)) {
     $errors[] = 'Недопустимый формат печати';
 }
 
-// Валидация количества копий
+
 if ($copies <= 0) {
     $errors[] = 'Количество копий должно быть больше 0';
 } elseif ($copies > 1000) {
     $errors[] = 'Количество копий не может превышать 1000';
 }
 
-// Валидация даты получения
 if (empty($pickup_date)) {
     $errors[] = 'Дата получения должна быть указана';
 } else {
@@ -127,13 +119,11 @@ if (empty($pickup_date)) {
     }
 }
 
-// Если есть ошибки валидации, показываем их и останавливаем выполнение
 if (!empty($errors)) {
     displayResult(false, 'Проверьте правильность заполнения формы.', $errors);
     exit;
 }
 
-// Подключение к базе данных
 $connection = getDatabaseConnection();
 if (!$connection) {
     displayResult(false, 'Ошибка подключения к базе данных. Попробуйте позже.');
@@ -141,17 +131,14 @@ if (!$connection) {
 }
 
 try {
-    // Подготовленный запрос для защиты от SQL-инъекций
     $stmt = $connection->prepare("INSERT INTO print_orders (document_name, print_format, copies, pickup_date) VALUES (?, ?, ?, ?)");
     
     if (!$stmt) {
         throw new Exception('Ошибка подготовки запроса: ' . $connection->error);
     }
     
-    // Привязка параметров
     $stmt->bind_param("ssis", $document_name, $print_format, $copies, $pickup_date);
     
-    // Выполнение запроса
     if ($stmt->execute()) {
         $order_id = $connection->insert_id;
         displayResult(true, "Ваш заказ успешно принят! Номер заказа: #$order_id");
@@ -162,11 +149,9 @@ try {
     $stmt->close();
     
 } catch (Exception $e) {
-    // Логирование ошибки (в реальном проекте)
     error_log("Ошибка при сохранении заказа: " . $e->getMessage());
     displayResult(false, 'Произошла ошибка при сохранении заказа. Попробуйте позже.');
 } finally {
-    // Закрытие соединения с базой данных
     if ($connection) {
         $connection->close();
     }

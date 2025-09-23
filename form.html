@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <form action="process.php" method="POST" id="printOrderForm">
-                            <!-- Название документа -->
+                           
                             <div class="mb-3">
                                 <label for="document_name" class="form-label">
                                     <i class="fas fa-file-alt me-2"></i>Название документа *
@@ -36,7 +36,7 @@
                                 <div class="form-text">Максимум 255 символов</div>
                             </div>
 
-                            <!-- Формат печати -->
+                          
                             <div class="mb-3">
                                 <label for="print_format" class="form-label">
                                     <i class="fas fa-expand-arrows-alt me-2"></i>Формат печати *
@@ -51,7 +51,7 @@
                                 </select>
                             </div>
 
-                            <!-- Количество копий -->
+                           
                             <div class="mb-3">
                                 <label for="copies" class="form-label">
                                     <i class="fas fa-copy me-2"></i>Количество копий *
@@ -70,7 +70,7 @@
                                 <div class="form-text">От 1 до 1000 копий</div>
                             </div>
 
-                            <!-- Дата получения -->
+                            
                             <div class="mb-3">
                                 <label for="pickup_date" class="form-label">
                                     <i class="fas fa-calendar-alt me-2"></i>Дата получения *
@@ -85,7 +85,7 @@
                                 <div class="form-text">Выберите дату получения заказа</div>
                             </div>
 
-                            <!-- Кнопки -->
+                          
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="reset" class="btn btn-outline-secondary me-md-2">
                                     <i class="fas fa-undo me-2"></i>Очистить
@@ -98,7 +98,7 @@
                     </div>
                 </div>
 
-                <!-- Информационная панель -->
+            
                 <div class="card mt-4">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -111,7 +111,7 @@
                             <li><i class="fas fa-check text-success me-2"></i>Обработка заказа занимает 1-2 рабочих дня</li>
                         </ul>
                         
-                        <!-- Навигационные ссылки -->
+                        
                         <div class="text-center">
                             <a href="index.html" class="btn btn-outline-secondary btn-sm me-2">
                                 <i class="fas fa-home me-1"></i>Главная
@@ -126,19 +126,17 @@
         </div>
     </div>
 
-    <!-- Font Awesome для иконок -->
+   
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Дополнительный JavaScript для валидации -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Установить минимальную дату как сегодня
+            
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('pickup_date').setAttribute('min', today);
-            
-            // Валидация формы
+
             const form = document.getElementById('printOrderForm');
             form.addEventListener('submit', function(e) {
                 const pickupDate = new Date(document.getElementById('pickup_date').value);

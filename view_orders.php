@@ -1,28 +1,20 @@
 <?php
-/**
- * Страница для просмотра всех заказов на печать из базы данных
- * Отображает все записи в удобной табличной форме
- */
 
-// Подключение конфигурации
 require_once 'config.php';
 
-// Функция для безопасного вывода HTML
 function htmlEscape($string) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
-// Функция для форматирования даты
 function formatDate($date) {
     return date('d.m.Y', strtotime($date));
 }
 
-// Функция для форматирования времени создания
 function formatDateTime($datetime) {
     return date('d.m.Y H:i:s', strtotime($datetime));
 }
 
-// Подключение к базе данных
+
 $connection = getDatabaseConnection();
 $orders = [];
 $error_message = '';
@@ -31,7 +23,7 @@ if (!$connection) {
     $error_message = 'Ошибка подключения к базе данных';
 } else {
     try {
-        // Запрос всех заказов, отсортированных по дате создания (новые сначала)
+     
         $query = "SELECT id, document_name, print_format, copies, pickup_date, created_at FROM print_orders ORDER BY created_at DESC";
         $result = $connection->query($query);
         
@@ -62,7 +54,7 @@ if (!$connection) {
 </head>
 <body>
     <div class="container mt-4">
-        <!-- Заголовок и навигация -->
+  
         <div class="row mb-4">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
@@ -82,7 +74,7 @@ if (!$connection) {
         </div>
 
         <?php if (!empty($error_message)): ?>
-            <!-- Сообщение об ошибке -->
+
             <div class="alert alert-danger" role="alert">
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 <strong>Ошибка:</strong> <?php echo htmlEscape($error_message); ?>
@@ -90,19 +82,17 @@ if (!$connection) {
         <?php endif; ?>
 
         <?php if (empty($orders) && empty($error_message)): ?>
-            <!-- Сообщение о пустой базе данных -->
             <div class="alert alert-info text-center" role="alert">
                 <i class="fas fa-info-circle me-2"></i>
                 <h4>Заказов пока нет</h4>
                 <p class="mb-0">База данных пуста. <a href="form.html" class="alert-link">Создайте первый заказ</a>.</p>
             </div>
         <?php else: ?>
-            <!-- Статистика -->
             <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="card bg-primary text-white">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card bg-primary text-white stats-card h-100">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5 class="card-title">Всего заказов</h5>
                                     <h2 class="mb-0"><?php echo count($orders); ?></h2>
@@ -114,10 +104,10 @@ if (!$connection) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card bg-success text-white">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card bg-success text-white stats-card h-100">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5 class="card-title">Всего копий</h5>
                                     <h2 class="mb-0"><?php echo array_sum(array_column($orders, 'copies')); ?></h2>
@@ -129,10 +119,10 @@ if (!$connection) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card bg-info text-white">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card bg-info text-white stats-card h-100">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5 class="card-title">Популярный формат</h5>
                                     <h2 class="mb-0">
@@ -154,13 +144,13 @@ if (!$connection) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card bg-warning text-white">
+                <div class="col-md-3 col-sm-6 mb-3">
+                    <div class="card bg-warning text-white stats-card h-100">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h5 class="card-title">Последний заказ</h5>
-                                    <h6 class="mb-0">
+                                    <h2 class="mb-0" style="font-size: 1.5rem;">
                                         <?php 
                                         if (!empty($orders)) {
                                             echo formatDate($orders[0]['created_at']);
@@ -168,7 +158,7 @@ if (!$connection) {
                                             echo '-';
                                         }
                                         ?>
-                                    </h6>
+                                    </h2>
                                 </div>
                                 <div class="align-self-center">
                                     <i class="fas fa-clock fa-2x"></i>
@@ -179,7 +169,6 @@ if (!$connection) {
                 </div>
             </div>
 
-            <!-- Таблица заказов -->
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">
@@ -233,7 +222,6 @@ if (!$connection) {
             </div>
         <?php endif; ?>
 
-        <!-- Нижняя панель -->
         <div class="row mt-4">
             <div class="col text-center">
                 <div class="btn-group" role="group">
@@ -248,10 +236,9 @@ if (!$connection) {
         </div>
     </div>
 
-    <!-- Font Awesome для иконок -->
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 

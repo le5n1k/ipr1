@@ -1,13 +1,10 @@
-/* Дополнительные стили для веб-сервиса заказа печати */
 
-/* Основные стили */
 body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Стили для карточек */
 .card {
     border: none;
     border-radius: 15px;
@@ -29,7 +26,6 @@ body {
     padding: 2rem;
 }
 
-/* Стили для формы */
 .form-label {
     font-weight: 600;
     color: #495057;
@@ -57,7 +53,6 @@ body {
     border-color: #667eea;
 }
 
-/* Стили для кнопок */
 .btn {
     border-radius: 10px;
     padding: 0.75rem 1.5rem;
@@ -66,34 +61,134 @@ body {
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     border: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    color: white !important;
 }
 
 .btn-primary:hover {
     background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    color: white !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+    color: white !important;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6);
+    color: white !important;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+    color: white !important;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(66, 153, 225, 0.6);
+    color: white !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    box-shadow: 0 4px 15px rgba(237, 137, 54, 0.4);
+    color: white !important;
+}
+
+.btn-warning:hover {
+    background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(237, 137, 54, 0.6);
+    color: white !important;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+    box-shadow: 0 4px 15px rgba(113, 128, 150, 0.4);
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(113, 128, 150, 0.6);
+    color: white !important;
 }
 
 .btn-outline-secondary {
     border: 2px solid #6c757d;
     color: #6c757d;
-    background: transparent;
+    background: white;
+    box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
 }
 
 .btn-outline-secondary:hover {
-    background: #6c757d;
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
     color: white;
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+    border-color: #6c757d;
 }
 
-/* Стили для успешных сообщений */
+.btn-outline-primary {
+    border: 2px solid #667eea;
+    color: #667eea;
+    background: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.btn-outline-primary:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    border-color: #667eea;
+}
+
+.btn-outline-info {
+    border: 2px solid #4299e1;
+    color: #4299e1;
+    background: white;
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.2);
+}
+
+.btn-outline-info:hover {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+    border-color: #4299e1;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
 .bg-success {
     background: linear-gradient(135deg, #48bb78 0%, #38a169 100%) !important;
+}
+
+.bg-info {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%) !important;
 }
 
 .alert-success {
@@ -103,7 +198,6 @@ body {
     border-radius: 10px;
 }
 
-/* Стили для сообщений об ошибках */
 .bg-danger {
     background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%) !important;
 }
@@ -122,12 +216,11 @@ body {
     border-radius: 10px;
 }
 
-/* Стили для иконок */
 .fas {
     margin-right: 0.5rem;
 }
 
-/* Стили для информационной панели */
+
 .list-unstyled li {
     padding: 0.5rem 0;
     border-bottom: 1px solid #e9ecef;
@@ -141,7 +234,6 @@ body {
     color: #48bb78 !important;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
@@ -161,7 +253,7 @@ body {
     }
 }
 
-/* Анимация загрузки */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -177,7 +269,7 @@ body {
     animation: fadeInUp 0.6s ease-out;
 }
 
-/* Стили для валидации */
+
 .form-control.is-invalid,
 .form-select.is-invalid {
     border-color: #f56565;
@@ -190,35 +282,138 @@ body {
     background-image: none;
 }
 
-/* Стили для подсказок */
+
 .form-text {
     font-size: 0.875rem;
     color: #6c757d;
     margin-top: 0.5rem;
 }
 
-/* Дополнительные стили для улучшения UX */
+
 .card-title {
     font-size: 1.5rem;
     font-weight: 700;
+}
+
+.stats-card {
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+}
+
+.stats-card .card-body {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.stats-card h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.stats-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.stats-card h6 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.stats-card i {
+    opacity: 0.7;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    border: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+}
+
+.table tbody td {
+    border-color: #f8f9fa;
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+}
+
+
+.alert {
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+    border-left: 4px solid #4299e1;
+    color: #2c5282;
+}
+
+.alert-info h4 {
+    color: #2c5282;
+    font-weight: 700;
+}
+
+.btn-group .btn {
+    margin-right: 0;
+}
+
+.btn-group .btn:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group .btn:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
 }
 
 .alert strong {
     font-weight: 600;
 }
 
-/* Стили для hover-эффектов */
 .form-control:not(:focus):hover,
 .form-select:not(:focus):hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для фокуса на кнопках */
+
 .btn:focus {
     box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.5);
 }
 
-/* Улучшенные стили для мобильных устройств */
+
 @media (max-width: 576px) {
     .card-header h2 {
         font-size: 1.25rem;
@@ -228,5 +423,123 @@ body {
         padding: 1rem;
         font-size: 1rem;
     }
+    
+    .stats-card h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .stats-card h5 {
+        font-size: 0.8rem !important;
+    }
+}
+
+
+.text-white {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.card-header.bg-primary,
+.card-header.bg-success,
+.card-header.bg-danger {
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+}
+
+
+.stats-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.stats-card:hover i {
+    animation: pulse 1s infinite;
+}
+
+.badge {
+    text-shadow: none;
+    font-weight: 500;
+}
+
+.badge.bg-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%) !important;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+    transform: translateX(5px);
+    box-shadow: -5px 0 10px rgba(102, 126, 234, 0.1);
+}
+
+.btn:active {
+    transform: translateY(1px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+.form-control:focus,
+.form-select:focus,
+.btn:focus {
+    outline: none;
+}
+
+
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container > .row:first-child {
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+.bg-primary,
+.bg-success,
+.bg-info,
+.bg-warning {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-primary::before,
+.bg-success::before,
+.bg-info::before,
+.bg-warning::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.stats-card:hover .bg-primary::before,
+.stats-card:hover .bg-success::before,
+.stats-card:hover .bg-info::before,
+.stats-card:hover .bg-warning::before {
+    left: 100%;
 }
 
