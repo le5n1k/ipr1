@@ -1,0 +1,17 @@
+# Запрещаем выполнение PHP файлов в директории uploads
+<Files "*.php">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Запрещаем выполнение скриптов
+<Files "*.php*">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+# Запрещаем доступ к скрытым файлам
+<Files ".*">
+    Order Deny,Allow
+    Deny from all
+</Files>

@@ -24,7 +24,7 @@ if (!$connection) {
 } else {
     try {
      
-        $query = "SELECT id, document_name, print_format, copies, pickup_date, created_at FROM print_orders ORDER BY created_at DESC";
+        $query = "SELECT id, document_name, print_format, copies, pickup_date, file_path, created_at FROM print_orders ORDER BY created_at DESC";
         $result = $connection->query($query);
         
         if ($result) {
@@ -184,6 +184,7 @@ if (!$connection) {
                                     <th scope="col">Название документа</th>
                                     <th scope="col">Формат</th>
                                     <th scope="col">Копии</th>
+                                    <th scope="col">Файл</th>
                                     <th scope="col">Дата получения</th>
                                     <th scope="col">Дата создания</th>
                                 </tr>
@@ -202,6 +203,17 @@ if (!$connection) {
                                         </td>
                                         <td>
                                             <span class="badge bg-success"><?php echo htmlEscape($order['copies']); ?></span>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($order['file_path']) && file_exists($order['file_path'])): ?>
+                                                <a href="<?php echo htmlEscape($order['file_path']); ?>" target="_blank" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-download me-1"></i>Скачать
+                                                </a>
+                                            <?php else: ?>
+                                                <span class="text-muted">
+                                                    <i class="fas fa-file-slash me-1"></i>Нет файла
+                                                </span>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
                                             <i class="fas fa-calendar-alt me-1"></i>

@@ -7,6 +7,66 @@ function htmlEscape($string) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
+function handleFileUpload($file, &$errors) {
+    $uploadDir = 'uploads/';
+    $maxFileSize = 10 * 1024 * 1024; // 10MB
+    $allowedTypes = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png'];
+    
+    // Проверяем, был ли загружен файл
+    if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
+        return null; // Файл не обязателен
+    }
+    
+    // Проверяем ошибки загрузки
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        switch ($file['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                $errors[] = 'Размер файла превышает максимально допустимый';
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $errors[] = 'Файл был загружен частично';
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $errors[] = 'Отсутствует временная папка';
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $errors[] = 'Ошибка записи файла на диск';
+                break;
+            default:
+                $errors[] = 'Неизвестная ошибка при загрузке файла';
+        }
+        return null;
+    }
+    
+    // Проверяем размер файла
+    if ($file['size'] > $maxFileSize) {
+        $errors[] = 'Размер файла превышает 10MB';
+        return null;
+    }
+    
+    // Получаем расширение файла
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    
+    // Проверяем тип файла
+    if (!in_array($fileExtension, $allowedTypes)) {
+        $errors[] = 'Недопустимый тип файла. Разрешены: ' . implode(', ', $allowedTypes);
+        return null;
+    }
+    
+    // Создаем уникальное имя файла
+    $fileName = uniqid() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', $file['name']);
+    $filePath = $uploadDir . $fileName;
+    
+    // Перемещаем файл в целевую директорию
+    if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+        $errors[] = 'Ошибка при сохранении файла';
+        return null;
+    }
+    
+    return $filePath;
+}
+
 
 function displayResult($success, $message, $errors = []) {
     ?>
@@ -83,6 +143,9 @@ $print_format = isset($_POST['print_format']) ? trim($_POST['print_format']) : '
 $copies = isset($_POST['copies']) ? (int)$_POST['copies'] : 0;
 $pickup_date = isset($_POST['pickup_date']) ? trim($_POST['pickup_date']) : '';
 
+// Обработка загруженного файла
+$file_path = handleFileUpload($_FILES['document_file'] ?? null, $errors);
+
 if (empty($document_name)) {
     $errors[] = 'Название документа не может быть пустым';
 } elseif (strlen($document_name) > 255) {
@@ -131,13 +194,13 @@ if (!$connection) {
 }
 
 try {
-    $stmt = $connection->prepare("INSERT INTO print_orders (document_name, print_format, copies, pickup_date) VALUES (?, ?, ?, ?)");
+    $stmt = $connection->prepare("INSERT INTO print_orders (document_name, print_format, copies, pickup_date, file_path) VALUES (?, ?, ?, ?, ?)");
     
     if (!$stmt) {
         throw new Exception('Ошибка подготовки запроса: ' . $connection->error);
     }
     
-    $stmt->bind_param("ssis", $document_name, $print_format, $copies, $pickup_date);
+    $stmt->bind_param("ssiss", $document_name, $print_format, $copies, $pickup_date, $file_path);
     
     if ($stmt->execute()) {
         $order_id = $connection->insert_id;

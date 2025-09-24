@@ -1,8 +1,8 @@
 <?php
 
-define('DB_HOST', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '1111');
+define('DB_HOST', '127.0.0.1');
+define('DB_USERNAME', 'phpuser');
+define('DB_PASSWORD', 'password123');
 define('DB_NAME', 'user_form_db_rakhmanko');
 define('DB_CHARSET', 'utf8mb4');
 

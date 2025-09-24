@@ -18,7 +18,7 @@
                         </h2>
                     </div>
                     <div class="card-body">
-                        <form action="process.php" method="POST" id="printOrderForm">
+                        <form action="process.php" method="POST" enctype="multipart/form-data" id="printOrderForm">
                            
                             <div class="mb-3">
                                 <label for="document_name" class="form-label">
@@ -83,6 +83,23 @@
                                     required
                                 >
                                 <div class="form-text">Выберите дату получения заказа</div>
+                            </div>
+
+                            <!-- Поле для загрузки файла -->
+                            <div class="mb-3">
+                                <label for="document_file" class="form-label">
+                                    <i class="fas fa-upload me-2"></i>Загрузить файл документа
+                                </label>
+                                <input 
+                                    type="file" 
+                                    class="form-control" 
+                                    id="document_file" 
+                                    name="document_file" 
+                                    accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
+                                >
+                                <div class="form-text">
+                                    Поддерживаемые форматы: PDF, DOC, DOCX, TXT, JPG, JPEG, PNG. Максимальный размер: 10MB
+                                </div>
                             </div>
 
                           

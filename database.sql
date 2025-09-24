@@ -16,3 +16,5 @@ CREATE TABLE IF NOT EXISTS print_orders (
 
 DESCRIBE print_orders;
 
+-- Обновление таблицы для добавления поля file_path (если таблица уже существует)
+ALTER TABLE print_orders ADD COLUMN IF NOT EXISTS file_path VARCHAR(500) DEFAULT NULL;
