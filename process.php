@@ -9,15 +9,13 @@ function htmlEscape($string) {
 
 function handleFileUpload($file, &$errors) {
     $uploadDir = 'uploads/';
-    $maxFileSize = 10 * 1024 * 1024; // 10MB
+    $maxFileSize = 10 * 1024 * 1024; 
     $allowedTypes = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png'];
     
-    // Проверяем, был ли загружен файл
     if (!isset($file) || $file['error'] === UPLOAD_ERR_NO_FILE) {
-        return null; // Файл не обязателен
+        return null; 
     }
     
-    // Проверяем ошибки загрузки
     if ($file['error'] !== UPLOAD_ERR_OK) {
         switch ($file['error']) {
             case UPLOAD_ERR_INI_SIZE:
@@ -39,26 +37,24 @@ function handleFileUpload($file, &$errors) {
         return null;
     }
     
-    // Проверяем размер файла
     if ($file['size'] > $maxFileSize) {
         $errors[] = 'Размер файла превышает 10MB';
         return null;
     }
     
-    // Получаем расширение файла
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
-    // Проверяем тип файла
+
     if (!in_array($fileExtension, $allowedTypes)) {
         $errors[] = 'Недопустимый тип файла. Разрешены: ' . implode(', ', $allowedTypes);
         return null;
     }
     
-    // Создаем уникальное имя файла
+
     $fileName = uniqid() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '', $file['name']);
     $filePath = $uploadDir . $fileName;
     
-    // Перемещаем файл в целевую директорию
+
     if (!move_uploaded_file($file['tmp_name'], $filePath)) {
         $errors[] = 'Ошибка при сохранении файла';
         return null;
@@ -143,7 +139,6 @@ $print_format = isset($_POST['print_format']) ? trim($_POST['print_format']) : '
 $copies = isset($_POST['copies']) ? (int)$_POST['copies'] : 0;
 $pickup_date = isset($_POST['pickup_date']) ? trim($_POST['pickup_date']) : '';
 
-// Обработка загруженного файла
 $file_path = handleFileUpload($_FILES['document_file'] ?? null, $errors);
 
 if (empty($document_name)) {

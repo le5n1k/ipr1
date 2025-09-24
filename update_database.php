@@ -1,8 +1,5 @@
 <?php
-/**
- * Скрипт для обновления существующей базы данных
- * Добавляет поле file_path в таблицу print_orders
- */
+
 
 require_once 'config.php';
 
@@ -16,14 +13,13 @@ if (!$connection) {
 }
 
 try {
-    // Проверяем, существует ли уже поле file_path
+
     $checkQuery = "SHOW COLUMNS FROM print_orders LIKE 'file_path'";
     $result = $connection->query($checkQuery);
     
     if ($result->num_rows > 0) {
         echo "<p style='color: green;'>✓ Поле file_path уже существует в таблице print_orders</p>\n";
     } else {
-        // Добавляем поле file_path
         $alterQuery = "ALTER TABLE print_orders ADD COLUMN file_path VARCHAR(500) DEFAULT NULL";
         
         if ($connection->query($alterQuery)) {
@@ -33,7 +29,6 @@ try {
         }
     }
     
-    // Показываем структуру таблицы
     echo "<h3>Структура таблицы print_orders:</h3>\n";
     $describeQuery = "DESCRIBE print_orders";
     $result = $connection->query($describeQuery);

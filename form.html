@@ -19,6 +19,8 @@
                     </div>
                     <div class="card-body">
                         <form action="process.php" method="POST" enctype="multipart/form-data" id="printOrderForm">
+                            
+                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
                            
                             <div class="mb-3">
                                 <label for="document_name" class="form-label">
@@ -85,7 +87,6 @@
                                 <div class="form-text">Выберите дату получения заказа</div>
                             </div>
 
-                            <!-- Поле для загрузки файла -->
                             <div class="mb-3">
                                 <label for="document_file" class="form-label">
                                     <i class="fas fa-upload me-2"></i>Загрузить файл документа
@@ -99,6 +100,11 @@
                                 >
                                 <div class="form-text">
                                     Поддерживаемые форматы: PDF, DOC, DOCX, TXT, JPG, JPEG, PNG. Максимальный размер: 10MB
+                                </div>
+                                <!-- Контейнер для сообщений об ошибках файла -->
+                                <div id="file-error-message" class="alert alert-danger mt-2" style="display: none;">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <span id="file-error-text"></span>
                                 </div>
                             </div>
 
@@ -150,11 +156,87 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('pickup_date').setAttribute('min', today);
 
             const form = document.getElementById('printOrderForm');
+            const fileInput = document.getElementById('document_file');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const fileErrorMessage = document.getElementById('file-error-message');
+            const fileErrorText = document.getElementById('file-error-text');
+            
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; 
+            const ALLOWED_TYPES = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png'];
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+
+            function getFileExtension(filename) {
+                return filename.split('.').pop().toLowerCase();
+            }
+
+
+            function validateFile(file) {
+                if (!file) return { valid: true };
+
+                const errors = [];
+
+
+                if (file.size > MAX_FILE_SIZE) {
+                    errors.push(`Размер файла (${formatFileSize(file.size)}) превышает максимально допустимый размер 10MB`);
+                }
+
+
+                const extension = getFileExtension(file.name);
+                if (!ALLOWED_TYPES.includes(extension)) {
+                    errors.push(`Недопустимый тип файла (.${extension}). Разрешены: ${ALLOWED_TYPES.join(', ')}`);
+                }
+
+                return {
+                    valid: errors.length === 0,
+                    errors: errors
+                };
+            }
+
+
+            function showFileError(message) {
+                fileErrorText.textContent = message;
+                fileErrorMessage.style.display = 'block';
+                fileInput.classList.add('is-invalid');
+                submitButton.disabled = true;
+            }
+
+
+            function hideFileError() {
+                fileErrorMessage.style.display = 'none';
+                fileInput.classList.remove('is-invalid');
+                submitButton.disabled = false;
+            }
+
+
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const validation = validateFile(file);
+                    
+                    if (!validation.valid) {
+                        showFileError(validation.errors.join('. '));
+                    } else {
+                        hideFileError();
+                    }
+                } else {
+                    hideFileError();
+                }
+            });
+
+
             form.addEventListener('submit', function(e) {
                 const pickupDate = new Date(document.getElementById('pickup_date').value);
                 const today = new Date();
@@ -165,6 +247,21 @@
                     alert('Дата получения не может быть в прошлом!');
                     return false;
                 }
+
+                const file = fileInput.files[0];
+                if (file) {
+                    const validation = validateFile(file);
+                    if (!validation.valid) {
+                        e.preventDefault();
+                        showFileError(validation.errors.join('. '));
+                        fileInput.focus();
+                        return false;
+                    }
+                }
+            });
+
+            form.querySelector('button[type="reset"]').addEventListener('click', function() {
+                hideFileError();
             });
         });
     </script>
