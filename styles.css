@@ -435,7 +435,47 @@ body {
 
 
 .text-white {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #ffffff !important;
+}
+
+.text-white-50 {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+
+.display-4.text-white {
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+}
+
+.lead.text-white-50 {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.border-light {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    }
+    50% {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+    }
+}
+
+.display-4.text-white {
+    animation: glow 3s ease-in-out infinite;
 }
 
 .card-header.bg-primary,

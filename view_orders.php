@@ -58,8 +58,8 @@ if (!$connection) {
         <div class="row mb-4">
             <div class="col">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="mb-0">
-                        <i class="fas fa-list me-2"></i>Все заказы на печать
+                    <h1 class="display-4 mb-3 text-white fw-bold">
+                        <i class="fas fa-print me-3"></i>Все заказы на печать
                     </h1>
                     <div>
                         <a href="form.html" class="btn btn-primary me-2">
